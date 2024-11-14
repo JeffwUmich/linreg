@@ -75,6 +75,8 @@ get_summary_table <- function(calcs){
   return(summary_table)
 }
 
+
+
 #' linear_regression
 #'
 #' A package for performing Ordinary Least Squares (OLS) on a given model and
