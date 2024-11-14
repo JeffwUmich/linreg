@@ -1,0 +1,105 @@
+---
+title: "Introduction to linreg"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to linreg}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The `linreg` package provides a simple interface for performing Ordinary Least Squares (OLS) regression in R. It’s designed to estimate regression coefficients and their standard errors, as well as perform statistical inference on each beta coefficient based on a two-sided t-test. This vignette introduces the package and demonstrates its use, including a comparison with `lm` to validate the `linreg`'s output and efficiency.
+
+In the following sections, we’ll use the `mtcars` dataset, which comes prepackaged with R, to illustrate how the `linreg` package works.
+
+## Inputs to `linear_regression`
+
+The `linear_regression` is the primary function in `linreg` and takes two main inputs:
+
+1. **Formula**: An R formula specifying the model to be fitted, similar to the `lm` function’s formula syntax.
+2. **Data**: A data frame containing the variables referenced in the formula. This should include the response (outcome) and explanatory variables (predictors) required for the model.
+
+### Understanding the Formula Interface
+
+The formula interface in R is widely used for specifying statistical models, including regression models. In this interface, you define a response variable on the left-hand side and one or more predictor variables on the right-hand side, separated by a `~` symbol. For example:
+
+```R
+mpg ~ hp + wt
+```
+This formula specifies a model where mpg is the response variable, and hp and wt are predictors. Interaction terms can also be specified using `*` or `:` if we want to include the interaction and the marginal terms or just the interaction terms, respectively.
+
+To learn more about how formulas work in R, refer to the To learn more about how formulas work in R, refer to the [official R documentation](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/formula).
+
+## Example Usage
+To demonstrate, we’ll use the mtcars dataset with mpg as the outcome and hp and wt as predictors.
+
+```{r}
+# Load the linreg package
+library(linreg)
+
+# Perform linear regression using linear_regression from linreg
+model <- linear_regression(mpg ~ hp + wt, data = mtcars)
+print(model)
+```
+
+### Explanation of the Output
+
+The output from `linear_regression` is a matrix with the following information given by column:
+
+- **Beta Coefficients**: The estimated effect of each predictor on the response variable.
+- **Standard Errors**: The standard errors of Beta Coefficients.
+- **t-values**: The t-statistic from the two-sided t-test for each estimated coefficient.
+- **p-values**: The p-value from the corresponding two-sided t-test.
+
+Each row corresponds to each of the specified predictors in the model.
+
+## Additional Examples
+
+### Example with Categorical Predictor
+
+Here, we add a categorical predictor, `cyl`, representing the number of cylinders in the vehicle. Before running the model, it is important that we convert `cyl` to a factor so that a reference category is specified.
+
+
+```{r}
+# Convert 'cyl' to a factor
+mtcars$cyl <- as.factor(mtcars$cyl)
+
+# Fit model with categorical predictor
+model_cat <- linear_regression(mpg ~ hp + wt + cyl, data = mtcars)
+print(model_cat)
+```
+
+### Example with an Interaction Term
+
+Now, let's add an interaection term between `hp` and `wt` to see if the relationship between `mpg` and `hp` variaes by `wt`
+```{r}
+# Fit model with interaction term
+model_interaction <- linear_regression(mpg ~ hp * wt, data = mtcars)
+print(model_interaction)
+```
+
+## Comparing Results with `lm`
+
+To validate the results, we can compare the output from `linear_regression` with R's built-in `lm` function for our first model.
+```{r}
+# Perform regression using lm for comparison
+lm_model <- lm(mpg ~ hp + wt, data = mtcars)
+lm_summary <- summary(lm_model)$coefficients
+
+# Test if results are equal
+all.equal(as.matrix(model), as.matrix(lm_summary), check.attributes = FALSE)
+```
+### Benchmark comparison between linreg and lm
+```{r}
+library(bench)
+
+# Benchmark linear_regression vs. lm
+linreg_bench <- bench::mark(linreg = linear_regression(mpg ~ hp + wt, data = mtcars))
+lm_bench <- bench::mark(lm(mpg ~ hp + wt, data = mtcars))
+
+benchmarks <- as.matrix(rbind(linreg_bench, lm_bench))
+rownames(benchmarks) <- c("linreg", "lm")
+benchmarks[,c("min", "median", "itr/sec", "mem_alloc", "gc/sec", "n_itr", "n_gc", "total_time")]
+```
+
+## Conclusion
+The `linreg` package provides a simple way to perform OLS regression using the R formula interface. This vignette demonstrates the usage of linear_regression using the mtcars dataset, explains the functions input requirements, and validates it against `lm`.
