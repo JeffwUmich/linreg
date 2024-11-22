@@ -32,7 +32,7 @@ To learn more about how formulas work in R, refer to the To learn more about how
 ## Example Usage
 To demonstrate, we’ll use the mtcars dataset with mpg as the outcome and hp and wt as predictors.
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
+```{r, results = "hide", message = FALSE, warning = FALSE}
 # Load the linreg package
 library(linreg)
 
