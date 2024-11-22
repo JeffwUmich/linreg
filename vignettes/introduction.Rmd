@@ -9,7 +9,7 @@ vignette: >
 
 The `linreg` package provides a simple interface for performing Ordinary Least Squares (OLS) regression in R. It’s designed to estimate regression coefficients and their standard errors, as well as perform statistical inference on each beta coefficient based on a two-sided t-test. This vignette introduces the package and demonstrates its use, including a comparison with `lm` to validate the `linreg`'s output and efficiency.
 
-In the following sections, we’ll use the `mtcars` dataset, which comes prepackaged with R, to illustrate how the `linreg` package works.
+In the following sections, we’ll use the `mtcars` data set, which comes prepackaged with R, to illustrate how the `linreg` package works.
 
 ## Inputs to `linear_regression`
 
@@ -32,7 +32,7 @@ To learn more about how formulas work in R, refer to the To learn more about how
 ## Example Usage
 To demonstrate, we’ll use the mtcars dataset with mpg as the outcome and hp and wt as predictors.
 
-```{r}
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
 # Load the linreg package
 library(linreg)
 
@@ -70,7 +70,7 @@ print(model_cat)
 
 ### Example with an Interaction Term
 
-Now, let's add an interaection term between `hp` and `wt` to see if the relationship between `mpg` and `hp` variaes by `wt`
+Now, let's add an interaction term between `hp` and `wt` to see if the relationship between `mpg` and `hp` varies by `wt`
 ```{r}
 # Fit model with interaction term
 model_interaction <- linear_regression(mpg ~ hp * wt, data = mtcars)
@@ -102,4 +102,4 @@ benchmarks[,c("min", "median", "itr/sec", "mem_alloc", "gc/sec", "n_itr", "n_gc"
 ```
 
 ## Conclusion
-The `linreg` package provides a simple way to perform OLS regression using the R formula interface. This vignette demonstrates the usage of linear_regression using the mtcars dataset, explains the functions input requirements, and validates it against `lm`.
+The `linreg` package provides a simple way to perform OLS regression using the R formula interface. This vignette demonstrates the usage of linear_regression using the mtcars data set, explains the functions input requirements, and validates it against `lm`.
