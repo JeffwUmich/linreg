@@ -18,20 +18,23 @@ test_that("get_test_statistics works as expected", {
   expect_equal(result, get_test_statistics_output)
 })
 
+# Test Summary Table
+test_that("get_summary_table produces expected results", {
+  result <- linear_regression(mpg ~ hp + wt + cyl, mtcars)
+  expect_equal(result, get_summary_output)
+})
+
 # Test linear_regression
 test_that("linear_regression produces expected results", {
   result <- linear_regression(mpg ~ hp + wt + cyl, mtcars)
-  expect_equal(result, summary_output)
+  expect_equal(result, get_summary_output)
 })
-
-
-
 
 # Test bad input
 test_that("linear_regression fails with invalid input", {
   expect_error(
     linear_regression(mpg ~ hp + wtsdf + cyl, mtcars),
-    "object 'wtsdf' not found"
+    "The terms:  wtsdf are not present in the data"
   )
 })
 
