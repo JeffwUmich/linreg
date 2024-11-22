@@ -2,7 +2,7 @@
 
 ## Overview
 
-`linreg` is a straightforward R package that allows users to performing Ordinary Least Squares (OLS) regression. It allows you to estimate regression coefficients and their standard errors, and to perform statistical inference on each coefficient via two-sided t-tests.
+`linreg` is a straightforward R package that allows users to perform Ordinary Least Squares (OLS) regression. It allows you to estimate regression coefficients and their standard errors, and to perform statistical inference on each coefficient via two-sided t-tests.
 
 ## Installation
 
@@ -31,12 +31,12 @@ model <- linear_regression(mpg ~ hp + wt, data = mtcars)
 # Print the model summary
 print(model)
 ```
-### Passing Data Frames and Speciying Formulas
+### Passing Data Frames and Specifying Formulas
 The `linear_regression()` function accepts a formula and a data frame:
-- **Formula**: Specifes the model to be fitted. It suues the same syntaxx as R's built-in formula interface. For more details on how to write formulas in R, refer to the [R Documentation](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/formula)
+- **Formula**: Specifies the model to be fitted. It uses the same syntax as R's built-in formula interface. For more details on how to write formulas in R, refer to the [R Documentation](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/formula)
 - **Data**: A data frame containing the variables referenced in the formula.
 
-For more detailed infomration and additional exmaples, please view the package vignette:
+For more detailed information and additional examples, please view the package vignette:
 ```r
 browseVignettes("linreg")
 ```
