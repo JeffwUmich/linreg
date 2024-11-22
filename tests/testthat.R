@@ -9,5 +9,4 @@
 library(testthat)
 library(linreg)
 
-load(testthat::test_path("testdata", "testdata.rda"))
 test_check("linreg")

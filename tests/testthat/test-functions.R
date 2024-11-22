@@ -1,4 +1,3 @@
-library(testthat)
 library(linreg)
 
 # Test get_betas
