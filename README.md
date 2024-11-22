@@ -32,7 +32,7 @@ model <- linear_regression(mpg ~ hp + wt, data = mtcars)
 print(model)
 ```
 ### Passing Data Frames and Speciying Formulas
-The `linear_regression() function accepts a formula and a data frame:
+The `linear_regression()` function accepts a formula and a data frame:
 - **Formula**: Specifes the model to be fitted. It suues the same syntaxx as R's built-in formula interface. For more details on how to write formulas in R, refer to the [R Documentation](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/formula)
 - **Data**: A data frame containing the variables referenced in the formula.
 
