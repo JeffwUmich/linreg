@@ -23,3 +23,27 @@ test_that("linear_regression produces expected results", {
   result <- linear_regression(mpg ~ hp + wt + cyl, mtcars)
   expect_equal(result, summary_output)
 })
+
+
+
+
+# Test bad input
+test_that("linear_regression fails with invalid input", {
+  expect_error(
+    linear_regression(mpg ~ hp + wtsdf + cyl, mtcars),
+    "object 'wtsdf' not found"
+  )
+})
+
+# Test not full rank matrix
+test_that("linear_regression fails with non invertible matrix", {
+
+  not_full_rank_df <- data.frame(
+    "a" = c(1,1,1),
+    "b" = c(1,1,1)
+  )
+  expect_error(
+    linear_regression(a ~ b, not_full_rank_df),
+    "The design matrix is not invertible"
+  )
+})
