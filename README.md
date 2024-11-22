@@ -6,7 +6,7 @@
 
 ## Installation
 
-You can install the laltest version of linreg from GitHub using the `devtools` package:
+You can install the latest version of linreg from GitHub using the `devtools` package:
 ```r
 # Install devtools if you haven't already
 install.packages("devtools")
