@@ -1,4 +1,4 @@
-# Workflow for R-CMD-check with Homebrew adjustments
+# Workflow for R-CMD-check with Homebrew fixes
 on:
   push:
     branches: [main, master]
@@ -31,6 +31,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Replace Deprecated Formulae
+        if: runner.os == 'macOS'
+        run: |
+          brew uninstall --ignore-dependencies openssl@1.1 || true
+          brew install openssl@3
+          brew uninstall --ignore-dependencies ruby@3.0 || true
+          brew install ruby
+
+      - name: Reset Homebrew to Pristine State
+        if: runner.os == 'macOS'
+        run: |
+          cd /opt/homebrew/Library/Taps/homebrew/homebrew-core
+          git stash -u
+          git clean -d -f
+
       - name: Update Homebrew
         if: runner.os == 'macOS'
         run: |
@@ -40,12 +55,6 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           brew install qpdf || echo "qpdf installation skipped or failed gracefully."
-
-      - name: Debug Homebrew (macOS)
-        if: runner.os == 'macOS'
-        run: |
-          brew doctor
-          brew info qpdf
 
       - uses: r-lib/actions/setup-pandoc@v2
 
