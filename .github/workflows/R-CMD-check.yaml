@@ -19,8 +19,8 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macos-latest,   r: 'release'}
-          - {os: windows-latest, r: 'release'}
+          - {os: macos-latest,   r: '4.3.1'}
+          - {os: windows-latest, r: '4.3.1'}
           - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,   r: 'release'}
           - {os: ubuntu-latest,   r: 'oldrel-1'}
@@ -32,12 +32,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Update Homebrew on macOS
       - name: Update Homebrew
         if: runner.os == 'macOS'
         run: brew update --auto-update
 
-      # Install qpdf on macOS
       - name: Install qpdf
         if: runner.os == 'macOS'
         run: brew install qpdf
@@ -49,6 +47,7 @@ jobs:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
+          install-qpdf: false  # Prevent automatic qpdf installation
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
@@ -59,4 +58,3 @@ jobs:
         with:
           upload-snapshots: true
           build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
-
