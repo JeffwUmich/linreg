@@ -131,3 +131,5 @@ linear_regression <- function(formula, data){
 
 
 }
+
+mpg ~ hp + wt + cyl, mtcars

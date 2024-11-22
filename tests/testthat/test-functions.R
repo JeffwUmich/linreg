@@ -1,4 +1,5 @@
 library(testthat)
+library(linreg)
 
 # Test get_betas
 test_that("get_betas works as expected", {
@@ -21,5 +22,5 @@ test_that("get_test_statistics works as expected", {
 # Test linear_regression
 test_that("linear_regression produces expected results", {
   result <- linear_regression(mpg ~ hp + wt + cyl, mtcars)
-  expect_equal(result, results)
+  expect_equal(result, summary_output)
 })
