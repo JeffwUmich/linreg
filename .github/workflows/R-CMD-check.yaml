@@ -41,8 +41,8 @@ jobs:
       - name: Install R Manually (macOS only)
         if: runner.os == 'macOS'
         run: |
-          curl -O https://cran.r-project.org/bin/macosx/R-4.3.1.pkg
-          sudo installer -pkg R-4.3.1.pkg -target /
+          curl -L -o R.pkg https://cloud.r-project.org/bin/macosx/base/R-4.3.1.pkg
+          sudo installer -pkg R.pkg -target /
 
       - uses: r-lib/actions/setup-pandoc@v2
 
