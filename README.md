@@ -1,5 +1,5 @@
 # linreg: A Simple R Package for Ordinary Least Squares Regression
-[![R-CMD-check](https://github.com/JeffwUmich/linreg/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JeffwUmich/linreg/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/JeffwUmich/linreg/graph/badge.svg)](https://app.codecov.io/gh/JeffwUmich/linreg)
 ## Overview
 
 `linreg` is a straightforward R package that allows users to perform Ordinary Least Squares (OLS) regression. It allows you to estimate regression coefficients and their standard errors, and to perform statistical inference on each coefficient via two-sided t-tests.
