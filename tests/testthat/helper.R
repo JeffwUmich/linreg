@@ -1,2 +1,2 @@
 # Load test data for testhat
-load(testthat::test_path("testdata", "testdata.rda"))
+load(testthat::test_path("testdata", "testdata.RData"))
